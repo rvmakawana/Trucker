@@ -29,7 +29,7 @@ public class PService {
 	TireService ts;
 	
 	
-	public List<Priorities> findHigh()
+	public void add()
 	{
 		List<Priorities> pv= new ArrayList();
 		Date dt = new Date();
@@ -51,7 +51,7 @@ public class PService {
 				}
 				else if(r.getFuelVolume()< fuel )
 				{
-					p.setPriority("Medium");
+					p.setPriority("MEDIUM");
 				}
 			    else if(r.isEngineCoolantLow() ==true || r.isCheckEngineLightOn()==true)
 				{
@@ -73,6 +73,10 @@ public class PService {
 				{
 					p.setPriority("LOW");
 				}
+			    else
+			    {
+			    	 p.setPriority("NO ALERTS");
+			    }
 			    
 				p.setTimestamp(r.getTimestamp());
 				p.setVin(r.getVin());
@@ -80,8 +84,69 @@ public class PService {
 			}
 			
 		}
-		
+	}
+	
+	
+	public List<Priorities> findHigh()
+	{
+//		List<Priorities> pv= new ArrayList();
+//		Date dt = new Date();
+//		int hours = dt.getHours();
+//		
+//		Priorities p=new Priorities();
+//		for(Vehicles vehicle:vs.findall())
+//		{
+//			System.out.println("new model is "+vehicle.getModel());
+//		    float fuel=(float) (vehicle.getMaxFuelVolume()-(vehicle.getMaxFuelVolume()*0.10));
+//			List<Reading> readings=rs.findallbyvin(vehicle.getVin());
+//			for(Reading r:readings)
+//			{
+//				int t1=r.getTires().getId();
+//				Tires t=ts.findone(t1);
+//				if(r.getEngineRpm()> vehicle.getRedlineRpm())
+//				{
+//					p.setPriority("HIGH");
+//				}
+//				else if(r.getFuelVolume()< fuel )
+//				{
+//					p.setPriority("MEDIUM");
+//				}
+//			    else if(r.isEngineCoolantLow() ==true || r.isCheckEngineLightOn()==true)
+//				{
+//					p.setPriority("LOW");
+//				}
+//			    else	 if(t.getFrontLeft()<32 || t.getFrontLeft()<32 )
+//				{
+//					p.setPriority("LOW");
+//				}
+//			    else if(t.getFrontRight()<32 || t.getFrontRight()>36)
+//				{
+//					p.setPriority("LOW");
+//				}	
+//			    else if(t.getRearLeft()<32 || t.getRearLeft()>36)
+//				{
+//					p.setPriority("LOW");
+//				}
+//			    else if(t.getRearRight()<32 || t.getRearRight()>36)
+//				{
+//					p.setPriority("LOW");
+//				}
+//			    else
+//			    {
+//			    	 p.setPriority("NO ALERTS");
+//			    }
+//			    
+//				p.setTimestamp(r.getTimestamp());
+//				p.setVin(r.getVin());
+//				pr.save(p);
+//			}
+//			
+//		}
+		add();
+		List<Priorities> pv= new ArrayList();
 		pv=pr.findAllByPriority("HIGH");
+		Date dt = new Date();
+		int hours = dt.getHours();
 		List<Priorities> prs=new ArrayList();
 		if(pv.isEmpty())
 		{
